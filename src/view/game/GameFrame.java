@@ -47,7 +47,7 @@ public class GameFrame extends JFrame {
         getContentPane().setBackground(Color.LIGHT_GRAY);
 
         // 关卡选择
-        String[] levels = {
+        /*String[] levels = {
                 "横刀立马", "指挥若定", "将拥曹营", "齐头并进", "兵分三路",
                 "捷足先登", "左右布兵", "围而不坚", "插翅难飞", "守口如瓶",
                 "近在咫尺", "五将逼供"
@@ -55,7 +55,7 @@ public class GameFrame extends JFrame {
         levelSelector = new JComboBox<>(levels);
         levelSelector.setBounds(20, 20, 120, 30);
         add(levelSelector);
-        levelSelector.addActionListener(e -> loadLevelByName((String) levelSelector.getSelectedItem()));
+        levelSelector.addActionListener(e -> loadLevelByName((String) levelSelector.getSelectedItem()));*/
 
         // 游戏面板
         gamePanel = new GamePanel(mapModel);
@@ -76,10 +76,14 @@ public class GameFrame extends JFrame {
                 "Restart",
                 new Point(gamePanel.getPanelWidth() + 80, 120),
                 150, 50);
-        restartBtn.addActionListener(e -> {
+        /*restartBtn.addActionListener(e -> {
             mapModel.setMatrix(originalMatrix);
             totallyReset();
             gamePanel.requestFocusInWindow();
+        });*/
+        restartBtn.addActionListener(e -> {
+            new LevelSelectionFrame(this).setVisible(true);
+            // 对话框关闭后，GameFrame会自动根据选择加载和重置
         });
         add(restartBtn);
 
@@ -146,7 +150,7 @@ public class GameFrame extends JFrame {
         gamePanel.setController(controller);
     }
 
-    private void loadLevelByName(String name) {
+    void loadLevelByName(String name) {
         int[][] matrix;
         switch (name) {
             case "横刀立马": matrix = tool.hengdaolima_1; break;
